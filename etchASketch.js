@@ -3,7 +3,7 @@ let cols = 16;
 
 let activeButton = 'black';
 const defaultColor = 'rgba(0,0,0,1.0)';
-const backgroundColor = 'lightslategray';
+const backgroundColor = 'beige';
 
 const grid = document.querySelector('.grid');
 const slider = document.getElementById("range");
@@ -127,11 +127,7 @@ function fadeColor(cell) {
         case '4':
             cell.dataset.darkstep++;
             return oldColor.replace(/[^,]+(?=\))/, '1.0');
-            break;
-       
-        
-        
-        
+            break;     
      }
 }
 

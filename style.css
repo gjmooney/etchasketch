@@ -51,7 +51,7 @@ button {
 } */
 
 .grid {
-    background-color: lightslategray;
+    background-color: beige;
     display: grid;
     width: 600px;
     height: 600px;
