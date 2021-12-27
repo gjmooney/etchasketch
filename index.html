@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Etch A Sketch</title>
+</head>
+<body>
+    <div class="container">
+        <div class="options">
+            <button class="black">Black</button>
+            <button class="colors">Colors</button>
+            <button class="eraser">Erase</button>
+            <button class="clear">Clear</button>
+            <div class="slideContainer">
+                <input autocomplete="off" type="range" min="16" max="64" value="16" step="16" class="slider" id="range">
+                <p><span id="value"></span></p>
+            </div>
+        </div>
+        <div class="grid" style="grid-template-columns: repeat(3, 1fr)"></div>
+    </div>
+    <script src="etchASketch.js"></script>
+</body>
+</html>
