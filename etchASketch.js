@@ -1,8 +1,8 @@
 let rows = 16;
 let cols = 16;
-let color = 'cadetblue';
+
 let activeButton = 'black';
-const defaultColor = 'black';
+const defaultColor = 'rgba(0,0,0,1.0)';
 const backgroundColor = 'chartreuse';
 
 const grid = document.querySelector('.grid');
@@ -45,6 +45,7 @@ function createGrid(rows,cols) {
         for (let j = 0; j < cols; j++) {
             let cell = document.createElement('div');
             cell.className = 'cell';
+            cell.dataset.darkstep = '0';
             cell.addEventListener('mouseover', etch)
             grid.appendChild(cell);
             console.log('add')
@@ -54,14 +55,69 @@ function createGrid(rows,cols) {
 
 function etch(e) {
     if (activeButton === 'black') {
-        this.style.backgroundColor = defaultColor;        
+        this.style.backgroundColor = fadeBlack(this);               
     } else if (activeButton === 'color') {
-        this.style.backgroundColor = 'hsl(' + (Math.random() * 360) + ', 100%, 50%, 1)';
+        this.style.backgroundColor = 'hsl(' + (Math.random() * 360) + ', 100%, 50%, .9)';
+        console.log(this.style.backgroundColor)
     } else if (activeButton === 'eraser') {
         this.style.backgroundColor = backgroundColor;
     }
     
     console.log('moused');
+}
+
+function fadeBlack(cell) {
+    step = cell.dataset.darkstep;
+    console.log(step);
+    switch(step) {
+        case '0':
+            cell.dataset.darkstep++;
+            return 'rgba(0, 0, 0, .2)';
+            break;
+        case '1':
+            cell.dataset.darkstep++;
+            return 'rgba(0, 0, 0, .4)';
+            break;
+        case '2':
+            cell.dataset.darkstep++;
+            return 'rgba(0, 0, 0, .6)';
+            break;
+        case '3':
+            cell.dataset.darkstep++;
+            return 'rgba(0, 0, 0, .8)';
+            break;
+        default:
+            return 'rgba(0, 0, 0, 1.0)';
+            break;
+     }
+}
+
+function fadeColor(cell) {
+    step = cell.dataset.darkstep;
+    console.log(cell);
+    oldColor = cell.style.backgroundColor;
+    switch(step) {
+        case '4':
+            cell.dataset.darkstep++;
+            return 'rgba(0, 0, 0, .2)';
+            break;
+        case '3':
+            cell.dataset.darkstep++;
+            return 'rgba(0, 0, 0, .4)';
+            break;
+        case '2':
+            cell.dataset.darkstep++;
+            return 'rgba(0, 0, 0, .6)';
+            break;
+        case '1':
+            cell.dataset.darkstep++;
+            return 'rgba(0, 0, 0, .8)';
+            break;
+        default:
+            cell.dataset.darkstep++;
+            return 'hsl(' + (Math.random() * 360) + ', 100%, 50%, .2)';
+            break;
+     }
 }
 
 window.onload = () => {

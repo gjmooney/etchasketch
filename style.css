@@ -65,6 +65,10 @@ button {
     padding: 8px 20px;
 } */
 
+.cell {
+    /* background-color: rgba(0,0,0,1.0); */
+}
+
 .hovered {
     background-color: cadetblue;
 }
