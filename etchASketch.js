@@ -3,7 +3,7 @@ let cols = 16;
 
 let activeButton = 'black';
 const defaultColor = 'rgba(0,0,0,1.0)';
-const backgroundColor = 'chartreuse';
+const backgroundColor = 'lightslategray';
 
 const grid = document.querySelector('.grid');
 const slider = document.getElementById("range");
@@ -15,10 +15,18 @@ const clearButton = document.querySelector('.clear');
 
 blackButton.addEventListener('click', function(e) {
     activeButton = 'black';
+    let cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.dataset.darkstep = '0';
+    });
 });
 
 colorsButton.addEventListener('click', function(e) {
     activeButton = 'color';
+    let cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.dataset.darkstep = '0';
+    });
 });
 
 eraserButton.addEventListener('click', (e) => {
@@ -27,8 +35,11 @@ eraserButton.addEventListener('click', (e) => {
 
 clearButton.addEventListener('click', (e) => {
     let cells = document.querySelectorAll('.cell');
-    cells.forEach(cell => cell.style.backgroundColor = backgroundColor);
-})
+    cells.forEach(cell => {
+        cell.style.backgroundColor = backgroundColor;
+        cell.dataset.darkstep = '0';
+    });
+});
 
 slider.addEventListener('input', (e) => {
     rows = e.target.value;
@@ -57,8 +68,7 @@ function etch(e) {
     if (activeButton === 'black') {
         this.style.backgroundColor = fadeBlack(this);               
     } else if (activeButton === 'color') {
-        this.style.backgroundColor = 'hsl(' + (Math.random() * 360) + ', 100%, 50%, .9)';
-        console.log(this.style.backgroundColor)
+        this.style.backgroundColor = fadeColor(this);
     } else if (activeButton === 'eraser') {
         this.style.backgroundColor = backgroundColor;
     }
@@ -86,7 +96,8 @@ function fadeBlack(cell) {
             cell.dataset.darkstep++;
             return 'rgba(0, 0, 0, .8)';
             break;
-        default:
+        case '4':
+            cell.dataset.darkstep++;
             return 'rgba(0, 0, 0, 1.0)';
             break;
      }
@@ -94,29 +105,33 @@ function fadeBlack(cell) {
 
 function fadeColor(cell) {
     step = cell.dataset.darkstep;
-    console.log(cell);
+    console.log(cell.style.backgroundColor);
     oldColor = cell.style.backgroundColor;
     switch(step) {
-        case '4':
-            cell.dataset.darkstep++;
-            return 'rgba(0, 0, 0, .2)';
-            break;
-        case '3':
-            cell.dataset.darkstep++;
-            return 'rgba(0, 0, 0, .4)';
-            break;
-        case '2':
-            cell.dataset.darkstep++;
-            return 'rgba(0, 0, 0, .6)';
-            break;
-        case '1':
-            cell.dataset.darkstep++;
-            return 'rgba(0, 0, 0, .8)';
-            break;
-        default:
+        case '0':
             cell.dataset.darkstep++;
             return 'hsl(' + (Math.random() * 360) + ', 100%, 50%, .2)';
             break;
+        case '1':
+            cell.dataset.darkstep++;
+            return oldColor.replace(/[^,]+(?=\))/, '0.4');
+            break;    
+        case '2':
+            cell.dataset.darkstep++;
+            return oldColor.replace(/[^,]+(?=\))/, '0.6');
+            break; 
+        case '3':
+            cell.dataset.darkstep++;
+            return oldColor.replace(/[^,]+(?=\))/, '0.8');
+            break;        
+        case '4':
+            cell.dataset.darkstep++;
+            return oldColor.replace(/[^,]+(?=\))/, '1.0');
+            break;
+       
+        
+        
+        
      }
 }
 
